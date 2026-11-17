@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inscribir asignatura · Matrícula académica</title>
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+<header class="sitio">
+  <div class="barra">
+    <a class="marca" href="/">
+      <span class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/><path d="M22 9v6"/></svg>
+      </span>
+      <span><strong>Matrícula académica</strong><small>Universidad del Quindío</small></span>
+    </a>
+    <nav class="principal" aria-label="Principal">
+      <a href="/" aria-current="page">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M4 19V5"/></svg>
+        Inscribir asignatura
+      </a>
+      <a href="/estudiantes.html">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0"/><path d="M16 4.5a3.5 3.5 0 010 7M18 14a6.5 6.5 0 013.5 6"/></svg>
+        Gestionar estudiantes
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="titulo-pagina">
+    <h2>Inscribir una asignatura</h2>
+    <p>Sigue los tres pasos: identifícate, elige la asignatura y confirma. Revisamos las reglas de matrícula antes de guardar nada.</p>
+  </div>
+
+  <ol class="pasos" id="pasos" aria-label="Pasos de la inscripción">
+    <li data-paso="1"><button type="button"><span class="num">1</span><span class="txt"><strong>Identifícate</strong><span>Periodo y documento</span></span></button></li>
+    <li data-paso="2"><button type="button"><span class="num">2</span><span class="txt"><strong>Elige asignatura</strong><span>Busca por código o nombre</span></span></button></li>
+    <li data-paso="3"><button type="button"><span class="num">3</span><span class="txt"><strong>Confirma</strong><span>Revisa y recibe tu comprobante</span></span></button></li>
+  </ol>
+
+  <!-- PASO 1 -->
+  <section class="tarjeta paso" data-paso="1" aria-labelledby="t1">
+    <div class="encabezado">
+      <h3 id="t1">Identifícate</h3>
+      <p>Elige el periodo e ingresa tu documento para ver tu resumen de matrícula.</p>
+    </div>
+    <div class="fila">
+      <div class="campo" style="flex:1 1 380px;max-width:480px">
+        <label for="periodo">Periodo <span class="attr">Periodo.codigo</span></label>
+        <select id="periodo"></select>
+      </div>
+      <div class="campo">
+        <label for="documento">Documento <span class="attr">Estudiante.documento</span></label>
+        <input id="documento" inputmode="numeric" autocomplete="off" placeholder="Ej. 1001">
+      </div>
+      <button id="btnConsultar" type="button">Consultar</button>
+    </div>
+    <div class="ejemplos" aria-label="Documentos de ejemplo">
+      Para probar:
+      <button type="button" data-doc="1005">1005</button>
+      <button type="button" data-doc="1001">1001</button>
+      <button type="button" data-doc="1002">1002</button>
+      <button type="button" data-doc="1003">1003</button>
+    </div>
+    <p id="errEstudiante" class="error" role="alert"></p>
+    <div id="resumen" aria-live="polite">
+      <div class="vacio">Ingresa tu documento para ver tu resumen de matrícula.</div>
+    </div>
+    <div class="nav-pasos">
+      <a class="btn sec" href="/estudiantes.html">Gestionar estudiantes</a>
+      <div class="derecha">
+        <button type="button" id="btnSiguiente1" class="grande" disabled>Siguiente: elegir asignatura</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASO 2 -->
+  <section class="tarjeta paso" data-paso="2" aria-labelledby="t2" hidden>
+    <div class="encabezado">
+      <h3 id="t2">Elige una asignatura</h3>
+      <p>Busca por código o nombre, o deja el campo vacío para ver todas.</p>
+    </div>
+    <div class="fila">
+      <div class="campo">
+        <label for="query">Código o nombre <span class="attr">Asignatura.codigo / Asignatura.nombre</span></label>
+        <input id="query" autocomplete="off" placeholder="Ej. PRG-401 o Programación" disabled>
+      </div>
+      <button id="btnBuscar" type="button" disabled>Buscar</button>
+    </div>
+    <div id="resultados" aria-live="polite" style="margin-top:16px">
+      <div class="vacio">Consulta tu documento y busca una asignatura para ver los resultados.</div>
+    </div>
+    <div class="nav-pasos">
+      <button type="button" class="sec" id="btnAtras2">Anterior</button>
+      <div class="derecha">
+        <button type="button" id="btnSiguiente2" class="grande" disabled>Siguiente: confirmar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASO 3 -->
+  <section class="tarjeta paso" data-paso="3" aria-labelledby="t3" hidden>
+    <div class="encabezado">
+      <h3 id="t3">Confirma tu inscripción</h3>
+      <p>Revisa el resumen. La inscripción solo se guarda cuando pulses «Confirmar inscripción».</p>
+    </div>
+    <div id="confirmacion" aria-live="polite">
+      <div class="vacio">Selecciona una asignatura para validar las reglas y ver el resumen.</div>
+    </div>
+  </section>
+
+  <div class="enlace-pantalla">
+    <div><strong>¿Falta registrar o corregir a un estudiante?</strong><span>Créalo, edítalo o dalo de baja desde la otra pantalla.</span></div>
+    <a class="btn sec" href="/estudiantes.html">Ir a Gestionar estudiantes</a>
+  </div>
+</main>
+
+<script src="/js/api.js"></script>
+<script src="/js/inscripcion.js"></script>
+</body>
+</html>
